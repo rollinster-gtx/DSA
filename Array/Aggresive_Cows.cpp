@@ -1,60 +1,43 @@
-#include <iostream>
-#include <algorithm>
-using namespace std;
+class Solution {
+public:
 
-bool isPossible(int arr[], int n, int k, int mid)
-{
-    int cows = 1;
-    int lastPos = arr[0];
+    bool possible(vector<int> &stalls, int k, int dist) {
 
-    for (int i = 1; i < n; i++)
-    {
-        if (arr[i] - lastPos >= mid)
-        {
-            cows++;
-            lastPos = arr[i];
+        int count = 1;
+        int last = stalls[0];
 
-            if (cows == k)
-                return true;
+        for (int i = 1; i < stalls.size(); i++) {
+
+            if (stalls[i] - last >= dist) {
+                count++;
+                last = stalls[i];
+            }
         }
+
+        return count >= k;
     }
 
-    return false;
-}
+    int aggressiveCows(vector<int> &stalls, int k) {
 
-int aggressiveCows(int arr[], int n, int k)
-{
-    sort(arr, arr + n);
+        sort(stalls.begin(), stalls.end());
 
-    int start = 1;
-    int end = arr[n - 1] - arr[0];
-    int ans = -1;
+        int start = 1;
+        int end = stalls.back() - stalls[0];
+        int ans = 0;
 
-    while (start <= end)
-    {
-        int mid = start + (end - start) / 2;
+        while (start <= end) {
 
-        if (isPossible(arr, n, k, mid))
-        {
-            ans = mid;
-            start = mid + 1;
+            int mid = start + (end - start) / 2;
+
+            if (possible(stalls, k, mid)) {
+                ans = mid;
+                start = mid + 1;
+            }
+            else {
+                end = mid - 1;
+            }
         }
-        else
-        {
-            end = mid - 1;
-        }
+
+        return ans;
     }
-
-    return ans;
-}
-
-int main()
-{
-    int arr[] = {1, 2, 4, 8, 9};
-    int n = 5;
-    int k = 3;
-
-    cout << "Maximum Minimum Distance = " << aggressiveCows(arr, n, k);
-
-    return 0;
-}
+};
