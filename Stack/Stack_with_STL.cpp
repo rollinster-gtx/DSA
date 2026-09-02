@@ -1,16 +1,20 @@
-#include<iostream>
-#include<stack>
+#include <iostream>
+#include <queue>
 using namespace std;
 
-int main()
-{
-    stack<int> S;
-    S.push(6);
-    S.push(16);
-    S.push(26);
-    cout << S.size() << endl;
-    // top
-    S.pop();
-    cout << S.top() << endl;
-    cout << S.empty() << endl;
+int main() {
+    queue<int> q;
+
+    q.push(10);
+    q.push(40);
+    q.push(123);
+
+    q.pop();
+
+    cout << q.front() << endl;
+    cout << q.back() << endl;
+    cout << q.size() << endl;
+    cout << q.empty() << endl;
+
+    return 0;
 }
